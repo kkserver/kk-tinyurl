@@ -9,17 +9,27 @@ import (
 	"github.com/kkserver/kk-lib/kk"
 	"github.com/kkserver/kk-lib/kk/app"
 	"github.com/kkserver/kk-lib/kk/json"
+	"log"
 	"time"
 )
 
 type TinyurlService struct {
 	app.Service
+	Init   *app.InitTask
 	Get    *TinyurlTask
 	Create *TinyurlCreateTask
 }
 
 func (S *TinyurlService) Handle(a app.IApp, task app.ITask) error {
 	return app.ServiceReflectHandle(a, task, S)
+}
+
+func (S *TinyurlService) HandleInitTask(a *TinyurlApp, task *app.InitTask) error {
+	_, err = a.GetDB()
+	if err != nil {
+		log.Println("[TinyurlService][HandleInitTask]" + err.Error())
+	}
+	return nil
 }
 
 func IdToHash(id int64) string {
