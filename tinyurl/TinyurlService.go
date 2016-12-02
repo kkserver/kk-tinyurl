@@ -169,7 +169,7 @@ func (S *TinyurlService) HandleTinyurlCreateTask(a *TinyurlApp, task *TinyurlCre
 			{
 				var cache = cache.CacheSetTask{}
 				cache.Key = fmt.Sprintf("tinyurl.%d", vv.Id)
-				cache.Expires = 6
+				cache.Expires = a.Expires
 				b, _ := json.Encode(&vv)
 				cache.Value = string(b)
 
@@ -253,7 +253,7 @@ func (S *TinyurlService) HandleTinyurlTask(a *TinyurlApp, task *TinyurlTask) err
 			{
 				var cache = cache.CacheSetTask{}
 				cache.Key = fmt.Sprintf("tinyurl.%d", v.Id)
-				cache.Expires = 6
+				cache.Expires = a.Expires
 				b, _ := json.Encode(&v)
 				cache.Value = string(b)
 				app.Handle(a, &cache)

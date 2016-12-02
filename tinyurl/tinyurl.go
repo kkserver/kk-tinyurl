@@ -23,6 +23,7 @@ type TinyurlApp struct {
 	Client       *client.Service
 	ClientCache  *client.WithService
 	TinyurlTable kk.DBTable
+	Expires      int64
 }
 
 func (C *TinyurlApp) GetDB() (*sql.DB, error) {
